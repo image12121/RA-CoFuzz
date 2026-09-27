@@ -1,0 +1,36 @@
+{
+  "format": "q20_runtime_audit_public_v1",
+  "source_release_id": "q20-audited-v0.3.0-20260828",
+  "archive_date": "2026-09-07",
+  "hardware": "NVIDIA RTX 4090",
+  "python": "3.12.3",
+  "upstream_commits": {
+    "easyjailbreak": "d5477e712e43b7a1a2110974b814ce578d609f5f",
+    "pair_jailbreakingllms": "6379ef705a0fc745530f7d895963510c021b496a"
+  },
+  "versions": {
+    "accelerate": "1.14.0",
+    "fschat": "0.2.36",
+    "numpy": "2.3.2",
+    "openai": "1.109.1",
+    "pandas": "2.3.3",
+    "torch": "2.8.0+cu128",
+    "transformers": "4.46.3"
+  },
+  "wheel_sha256": {
+    "torch_2.8.0_cu128_cp312_linux_x86_64": "4354fc05bb79b208d6995a04ca1ceef6a9547b1c4334435574353d381c55087c",
+    "torchvision_0.23.0_cu128_cp312_linux_x86_64": "9cb3c13997afcb44057ca10d943c6c4cba3068afde0f370965abce9c89fcffa9"
+  },
+  "target_config_sha256": {
+    "meta-llama/Llama-3.2-3B-Instruct": "39fb36dc5416f445ebc4e71cb71fbcf6727e80a35836d8ba1a1474c318467b7a",
+    "Qwen/Qwen2.5-1.5B-Instruct": "98d2ff8cc47488d08a2b0b3acf4eb99ef210779b42bd48605f6b8e36acdbf670",
+    "Qwen/Qwen2.5-3B-Instruct": "eed00b17e22553979d090fa492e587e92885e328914c8e0b0b78f0a0d3576b3b",
+    "Qwen/Qwen2.5-7B-Instruct": "7463bb0ea78315365e6c6b74de4e73bbcc8359dfb0c5a737584e077d42c0b03c",
+    "lmsys/vicuna-7b-v1.5": "e122b598d0734b489590e99e3b3562a11ce67ea13bce390a7868b4f73ae6e615"
+  },
+  "unresolved_revisions": [
+    "Hugging Face snapshot revisions for the five target checkpoints",
+    "Hugging Face snapshot revision for hubert233/GPTFuzz"
+  ],
+  "privacy_note": "Machine-local paths and credentials are intentionally omitted."
+}

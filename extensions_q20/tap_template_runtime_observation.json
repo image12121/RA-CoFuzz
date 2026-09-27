@@ -1,0 +1,12 @@
+{
+  "observation": "user_reported_safe_structure_diagnostic",
+  "seed_100": {"template_sha256_prefix16": "7b2cffd97d3575df", "length": 5990},
+  "seed_200": {"template_sha256_prefix16": "7b2cffd97d3575df", "length": 5990},
+  "seed_300": {"template_sha256_prefix16": "246bd39fe98fed9c", "length": 248},
+  "seed_300_probe_responses": 3,
+  "seed_300_balanced_mapping_responses": 0,
+  "seed_300_required_field_responses": 0,
+  "target_calls": 0,
+  "decision": "pin_unique_template_that_explicitly_declares_parser_required_keys",
+  "completed_seed_100_200_policy": "preserve_no_rerun_observed_same_selected_template"
+}

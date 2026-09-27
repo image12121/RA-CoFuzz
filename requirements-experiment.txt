@@ -1,0 +1,10 @@
+# Recorded Python-side versions; install a CUDA-compatible PyTorch build separately.
+accelerate==1.14.0
+fschat==0.2.36
+numpy==2.3.2
+openai==1.109.1
+pandas==2.3.3
+psutil>=5.9
+transformers==4.46.3
+tqdm>=4.66
+

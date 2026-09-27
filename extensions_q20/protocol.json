@@ -1,0 +1,154 @@
+{
+  "extension_revision": "original-source-addons-cross-model-empty-eval-20260907",
+  "questions": 20,
+  "target_budget": 200,
+  "max_new_tokens": 128,
+  "seeds": [100, 200, 300],
+  "new_methods": ["tap", "renellm", "deepinception"],
+  "existing_methods": ["ra_cofuzz", "strict_gptfuzzer", "pair"],
+  "selection_ablations": {
+    "hybrid_wo_elite": {
+      "warmup_steps": 2,
+      "mcts_ratio": 0.50,
+      "dp_ratio": 0.50,
+      "elite_ratio": 0.00,
+      "disabled_branch": "elite",
+      "purpose": "remove_elite_branch"
+    },
+    "hybrid_wo_dp": {
+      "warmup_steps": 2,
+      "mcts_ratio": 0.80,
+      "dp_ratio": 0.00,
+      "elite_ratio": 0.20,
+      "disabled_branch": "dp",
+      "purpose": "remove_dp_branch"
+    },
+    "hybrid_wo_mcts": {
+      "warmup_steps": 0,
+      "mcts_ratio": 0.00,
+      "dp_ratio": 0.70,
+      "elite_ratio": 0.30,
+      "disabled_branch": "mcts",
+      "purpose": "remove_mcts_branch"
+    }
+  },
+  "feedback_ablations": {
+    "wo_label1_reward": {
+      "strong_judge_in_loop": true,
+      "force_review": false,
+      "label1_reward": "disabled",
+      "heuristic_partial_reward": "unchanged",
+      "expected_online_calls": "selective_0_to_200",
+      "purpose": "remove_label1_reward_from_fitness_and_parent_selection"
+    },
+    "wo_online_strongjudge_feedback": {
+      "strong_judge_in_loop": false,
+      "force_review": false,
+      "label1_reward": "unchanged",
+      "heuristic_partial_reward": "unchanged",
+      "expected_online_calls": "exactly_0",
+      "purpose": "remove_online_strongjudge_feedback_keep_heuristics"
+    },
+    "full_online_review": {
+      "strong_judge_in_loop": true,
+      "force_review": true,
+      "label1_reward": "unchanged",
+      "heuristic_partial_reward": "unchanged",
+      "expected_online_calls": "exactly_200",
+      "purpose": "review_every_candidate_online"
+    }
+  },
+  "cross_dataset": {
+    "datasets": ["advbench", "jailbreakbench"],
+    "model": "llama32_3b",
+    "core_methods": ["ra_cofuzz", "strict_gptfuzzer", "pair"],
+    "remaining_methods": ["tap", "renellm", "deepinception"],
+    "seeds": [100, 200, 300],
+    "target_budget_cap": 200,
+    "per_question_cap": 10,
+    "evaluation": "same_full_offline_strongjudge_and_roberta",
+    "historical_results": "not_used"
+  },
+  "cross_model": {
+    "dataset": "gptfuzzer",
+    "reference_model": "llama32_3b",
+    "new_models": ["qwen25_1_5b", "qwen25_3b", "qwen25_7b", "vicuna_7b"],
+    "core_methods": ["ra_cofuzz", "strict_gptfuzzer", "pair"],
+    "remaining_methods": ["tap", "renellm", "deepinception"],
+    "seeds": [100, 200, 300],
+    "target_budget_cap": 200,
+    "per_question_cap": 10,
+    "evaluation": "same_full_offline_strongjudge_and_roberta",
+    "reference_model_results": "reuse_completed_18_cells_do_not_rerun",
+    "historical_results": "not_used"
+  },
+  "empty_target_response_evaluation": {
+    "policy": "empty_target_response_label0_no_content_v1",
+    "scope": "all_new_evaluations",
+    "target_call_counted": true,
+    "target_retry": false,
+    "offline_api_call_for_empty_response": false,
+    "label": 0,
+    "report_empty_response_count_separately": true
+  },
+  "models": {
+    "llama32_3b": "TARGET_LLAMA",
+    "qwen25_1_5b": "TARGET_QWEN15",
+    "qwen25_3b": "TARGET_QWEN3",
+    "qwen25_7b": "TARGET_QWEN",
+    "vicuna_7b": "TARGET_VICUNA"
+  },
+  "model_display_names": {
+    "llama32_3b": "Llama-3.2-3B-Instruct",
+    "qwen25_1_5b": "Qwen2.5-1.5B-Instruct",
+    "qwen25_3b": "Qwen2.5-3B-Instruct",
+    "qwen25_7b": "Qwen2.5-7B-Instruct",
+    "vicuna_7b": "Vicuna-7B-v1.5"
+  },
+  "strongjudge": {
+    "provider": "OpenAI-compatible DeepSeek endpoint",
+    "model": "deepseek-chat",
+    "temperature": 0,
+    "max_output_tokens": 512
+  },
+  "metric_definitions": {
+    "question_label2_rate": "questions with at least one Label-2 response / covered questions",
+    "response_label2_rate": "Label-2 responses / recorded responses"
+  },
+  "datasets": {
+    "gptfuzzer": "gptfuzzer_q20_seed1234.csv",
+    "advbench": "advbench_q20_seed1234.csv",
+    "jailbreakbench": "jailbreakbench_q20_seed1234.csv"
+  },
+  "easy_variant": {
+    "tap": "native_tap_cap10_fixed_structured_template_balanced_parser_v2",
+    "renellm": "native_renellm_feedback_loop_per_question_cap10_v1",
+    "deepinception": "native_single_attack_per_question_cap10"
+  },
+  "tap_empty_recovery": {
+    "extra_mutation_batches_per_question": 1,
+    "trigger": "native_mutator_returns_empty_after_native_retries",
+    "native_branch_retry_limit": "unchanged",
+    "on_exhaustion": "explicit_generation_error_no_completion_marker",
+    "extra_api_cost": "record_logical_generate_calls_not_provider_retries"
+  },
+  "tap_parser_compatibility": {
+    "priority": "native_parser_first",
+    "fallback": "balanced_brace_standard_json_then_python_literal",
+    "required_fields": ["improvement", "prompt"],
+    "prompt_constraint": "nonempty_string",
+    "field_rewrite": false,
+    "dependency_file_modified": false,
+    "counts_recorded": ["native_accepted", "compat_accepted", "rejected"]
+  },
+  "tap_template_selection": {
+    "policy": "unique_normalized_template_explicitly_declaring_required_keys",
+    "required_keys": ["improvement", "prompt"],
+    "seed_independent": true,
+    "on_zero_or_multiple_matches": "explicit_error",
+    "completed_seed_100_200": "preserve_observed_same_selected_template",
+    "failed_seed_300": "archive_zero_response_attempt_then_rerun"
+  },
+  "external_dependency_verification": "server_boundary_test_required",
+  "historical_results": "preserve_separately_do_not_auto_merge"
+}

@@ -1,0 +1,16 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+*.log
+*.pid
+*.tmp
+*.bak
+.ipynb_checkpoints/
+.cache/
+checkpoints/
+models/
+private_outputs/
+raw_outputs/
+*.jsonl
+.DS_Store
